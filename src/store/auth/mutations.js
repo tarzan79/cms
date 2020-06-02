@@ -1,18 +1,20 @@
-export function auth_request(state) {
+export function auth_request (state) {
   state.status = 'loading'
 }
 
-export function auth_success(state, token, user) {
+export function auth_success (state, data) {
+  console.log('auth succes')
+  console.log(data.user)
   state.status = 'success'
-  state.token = token
-  state.user = user
+  state.token = data.token
+  state.user = data.user
 }
 
-export function auth_error(state) {
+export function auth_error (state) {
   state.status = 'error'
 }
 
-export function logout(state) {
+export function logout (state) {
   state.status = ''
   state.token = ''
 }

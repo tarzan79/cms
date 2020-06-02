@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
 
-import routes from './routes'
+import Site from './site'
+import Admin from './admin'
 
 Vue.use(VueRouter)
 
@@ -14,21 +16,37 @@ Vue.use(VueRouter)
  * with the Router instance.
  */
 
-export default function ( /* { store, ssrContext } */ ) {
+export default function ({ store }/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({
       x: 0,
       y: 0
     }),
-    mode: 'history',
-    routes,
+    routes: [
+      ...Admin,
+      ...Site // doit etre mis en dernier (mais je sais plus pourquoi)
+    ],
 
     // Leave these as they are and change in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode
     // quasar.conf.js -> build -> publicPath
-    mode: process.env.VUE_ROUTER_MODE,
+    // mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
   })
 
+  Router.beforeEach((to, from, next) => {
+    console.log(to)
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      console.log('isLoggedIn: ' + store.getters.isLoggedIn)
+      console.log('status: ' + store.getters.authStatus)
+      if (store.getters.isLoggedIn) {
+        next()
+        return
+      }
+      next('/signin')
+    } else {
+      next()
+    }
+  })
   return Router
 }

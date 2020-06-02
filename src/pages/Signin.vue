@@ -18,38 +18,38 @@
 </template>
 
 <script>
-import Notif from "src/mixins/Notification";
+import Notif from 'src/mixins/Notification'
 export default {
   components: {
     Notif
   },
-  name: "Signin",
-  data() {
+  name: 'Signin',
+  data () {
     return {
       errors: [],
-      email: "",
-      password: ""
-    };
+      email: '',
+      password: ''
+    }
   },
   methods: {
-    signin: function() {
-      let email = this.email;
-      let password = this.password;
+    signin: function () {
+      const email = this.email
+      const password = this.password
       this.$store
-        .dispatch("signin", {
+        .dispatch('signin', {
           email,
           password
         })
         .then(tt => {
-          console.log("login ok");
-          this.$router.push("/admin");
+          console.log('login ok')
+          this.$router.push('/admin')
         })
         .catch(err => {
-          console.log(err);
-          console.log("login erreur");
-          this.errors = err;
-        });
+          console.log(err)
+          console.log('login erreur')
+          this.errors = err
+        })
     }
   }
-};
+}
 </script>

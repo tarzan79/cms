@@ -9,8 +9,8 @@
 <script>
 // import 'src/css/style.scss'
 export default {
-  data() {
-    return {};
+  data () {
+    return {}
   }
-};
+}
 </script>

@@ -1,35 +1,25 @@
-
 <template>
-  <q-layout view="hhh LpR lff">
+  <q-layout view="hHh lpR fFf">
 
-    <q-header reveal bordered class="bg-primary text-white" height-hint="98">
-      <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="left = !left" />
-
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">
-          </q-avatar>
-          Title
-        </q-toolbar-title>
-      </q-toolbar>
-
-      <q-tabs align="left">
-        <q-route-tab to="/page1" label="Page One" />
-        <q-route-tab to="/page2" label="Page Two" />
-        <q-route-tab to="/page3" label="Page Three" />
-      </q-tabs>
+    <q-header elevated class="bg-primary text-white">
+      <AdminBar/>
     </q-header>
 
-    <q-drawer show-if-above v-model="left" side="left" bordered>
-      <!-- drawer content -->
+    <q-drawer
+        show-if-above
+        :width="180"
+        :breakpoint="500"
+        bordered
+        content-class="bg-grey-3"
+        v-model="left" side="left">
+      <Navigation />
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
 
-    <q-footer class="bg-grey-8 text-white">
+    <q-footer elevated class="bg-grey-8 text-white">
       <q-toolbar>
         <q-toolbar-title>
           <q-avatar>
@@ -44,7 +34,13 @@
 </template>
 
 <script>
+import Navigation from 'src/components/AdminNavigation'
+import AdminBar from 'src/components/AdminBar'
 export default {
+  components: {
+    Navigation,
+    AdminBar
+  },
   data () {
     return {
       left: false

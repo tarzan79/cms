@@ -1,4 +1,4 @@
-//francais
+// francais
 export default {
   failed: 'Echec',
   success: 'Action reussi',
@@ -12,5 +12,7 @@ export default {
   confirm: 'Confirmation',
   back: 'Retour',
   about: 'A propos',
-  home: 'Accueil'
+  home: 'Accueil',
+  validate: 'Valider',
+  profile: 'Profile'
 }

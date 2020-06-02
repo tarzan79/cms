@@ -2,7 +2,7 @@
   "name": "cms-quasar",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "productName": "Quasar-CMS",
   "cordovaId": "org.cordova.quasar.app",
   "capacitorId": "",
   "author": "grognon",
@@ -13,13 +13,17 @@
     "api": "nodemon src/boot/server/index"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^19.0.0",
+    "@ckeditor/ckeditor5-vue": "^1.0.1",
+    "@quasar/extras": "^1.8.1",
     "axios": "^0.18.1",
-    "quasar": "^1.0.0",
-    "vue-i18n": "^8.0.0"
+    "quasar": "^1.11.3",
+    "vue-i18n": "^8.0.0",
+    "vue-sidebar-menu": "^4.5.4"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0",
+    "@quasar/app": "^1.8.6",
+    "@vue/devtools": "^5.3.3",
     "babel-eslint": "^10.0.1",
     "devtron": "^1.4.0",
     "electron": "^8.2.5",

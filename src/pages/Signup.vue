@@ -3,13 +3,13 @@
     <Notif :errors="errors"></Notif>
     <form class="login" @submit.prevent="signup">
       <h2>{{ $t('signup') }}</h2>
-      <q-input required filled v-model="username" type="text" :label="$t('username')" />
+      <q-input required filled v-model="user.username" type="text" :label="$t('username')" />
       <br />
-      <q-input required filled v-model="email" type="mail" :label="$t('mail')" />
+      <q-input required filled v-model="user.email" type="mail" :label="$t('mail')" />
       <br />
-      <q-input required filled v-model="password" type="password" :label="$t('password')" />
+      <q-input required filled v-model="user.password" type="password" :label="$t('password')" />
       <br />
-      <q-input required filled v-model="confirmation" type="password" :label="$t('confirm')" />
+      <q-input required filled v-model="user.confirmation" type="password" :label="$t('confirm')" />
 
       <hr />
       <q-btn @click="$router.go(-1)" :label="$t('back')" outline />
@@ -19,35 +19,31 @@
 </template>
 
 <script>
-import Notif from "src/mixins/Notification";
+import Notif from 'src/mixins/Notification'
 export default {
   components: {
     Notif
   },
-  name: "Subscribe",
-  data() {
+  name: 'Subscribe',
+  data () {
     return {
       errors: [],
-      username: "",
-      email: "",
-      password: "",
-      confirmation: ""
-    };
+      user: {
+        username: '',
+        email: '',
+        password: '',
+        confirmation: ''
+      }
+    }
   },
   methods: {
-    signup: function() {
-      console.log("signup 1");
-      const data = {
-        username: this.username,
-        email: this.email,
-        password: this.password,
-        confirm: this.confirmation
-      };
+    signup: function () {
+      console.log('signup 1')
       this.$store
-        .dispatch("signup", data)
-        .then(() => this.$router.push("/"))
-        .catch(err => console.log(err));
+        .dispatch('signup', this.user)
+        .then(() => this.$router.push('/'))
+        .catch(err => console.log(err))
     }
   }
-};
+}
 </script>

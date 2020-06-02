@@ -1,6 +1,6 @@
 <template>
   <div v-if="errors">
-    <div v-for="error in errors" v-bind:key="error">
+    <div v-for="error in errors" :key="error">
       <div class="error-form">
         <p>erreur: {{ error }}</p>
       </div>
@@ -10,9 +10,9 @@
 
 <script>
 export default {
-  name: "Notif",
-  props: ["errors"]
-};
+  name: 'Notif',
+  props: ['errors']
+}
 </script>
 
 <style lang="scss" scoped>

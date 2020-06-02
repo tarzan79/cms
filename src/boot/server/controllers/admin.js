@@ -1,3 +1,0 @@
-exports.getMenu = (req, res) => {
-    
-};

@@ -2,6 +2,6 @@ export default function () {
   return {
     status: '',
     token: localStorage.getItem('token') || '',
-    user: {}
+    user: JSON.parse(localStorage.getItem('user')) || {}
   }
 }
