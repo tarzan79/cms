@@ -44,7 +44,6 @@ export function deleteOnePage ({ commit, state, dispatch }, id) {
       method: 'DELETE',
       url: '/pages/' + id
     }).then(page => {
-      console.log('delete one page action')
       commit('deleteOnePage', id)
       resolve(true)
     }).catch(err => {
@@ -54,18 +53,33 @@ export function deleteOnePage ({ commit, state, dispatch }, id) {
   })
 }
 
-export function updateOnePage ({ commit, state }, id, data) {
+export function updateOnePage ({ commit, state }, data) {
   return new Promise((resolve, reject) => {
     this.$axios({
       method: 'PUT',
-      url: '/pages/' + id,
+      url: '/pages/' + data._id,
       data: data
     }).then(page => {
-      console.log('update one page action')
-      commit('updateOnePage', id, data)
+      commit('updateOnePage', data)
       resolve(true)
     }).catch(err => {
       console.log('page non trouvé, elle a surement déjà été supprimé')
+      reject(err)
+    })
+  })
+}
+
+export function insertOnePage ({ commit }, data) {
+  return new Promise((resolve, reject) => {
+    this.$axios({
+      method: 'POST',
+      url: '/pages/',
+      data: data
+    }).then(page => {
+      commit('insertOnePage', data)
+      resolve(true)
+    }).catch(err => {
+      console.log('insertion non reussi')
       reject(err)
     })
   })

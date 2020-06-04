@@ -3,15 +3,15 @@
   <div class="q-pa-md">
     <h2>Nouvelle page</h2>
     <span>Titre </span><br><hr>
-    <q-input required filled v-model="title" type="text" label="titre" />
+    <q-input required filled v-model="page.title" type="text" label="titre" />
     <br>
-    <q-input filled v-model="formatedTitle" hint="Nom formatté" :label="title.replace(new RegExp(/[.*+' \-?^${}()|[\]\\]/g), '_')" readonly />
+    <q-input filled v-model="page.formatedTitle" hint="Nom formatté" :label="page.title.replace(new RegExp(/[.*+' \-?^${}()|[\]\\]/g), '_')" readonly />
     <br>
-    <q-input readonly required filled v-model="author" type="text" />
+    <q-input readonly required filled v-model="page.author" type="text" />
     <span>Contenu </span>
     <hr>
     <q-editor
-      v-model="qeditor"
+      v-model="page.content"
       :dense="$q.screen.lt.md"
       :toolbar="[
         [
@@ -111,37 +111,26 @@ export default {
   name: 'CreatePage',
   data () {
     return {
-      title: '',
-      author: this.$store.state.auth.user.username,
-      formatedTitle: '',
-      qeditor: '',
-      editorData: '',
-      editorConfig: {
-        // The configuration of the editor.
+      page: {
+        title: '',
+        author: this.$store.state.auth.user.username,
+        formatedTitle: '',
+        content: ''
       }
     }
   },
   methods: {
     add: function () {
       console.log(this.author)
-      this.$axios({
-        url: '/pages',
-        method: 'post',
-        data: {
-          title: this.title,
-          content: this.qeditor,
-          formatedTitle: this.title.replace(new RegExp(/[.*+' \-?^${}()|[\]\\]/g), '_'),
-          author: this.$store.state.auth.user.username
-        }
-      })
-        .then(resp => {
-          console.log('page ajouter')
+      this.page.formatedTitle = this.page.title.replace(new RegExp(/[.*+' \-?^${}()|[\]\\]/g), '_')
+      this.$store
+        .dispatch('insertOnePage', this.page)
+        .then((resp) => {
+          console.log('page recuperer')
           console.log(resp.data)
+          this.page = resp.data
         })
-        .catch(err => {
-          console.log('erreur : ')
-          console.log(err.response.data.errors)
-        })
+        .catch(err => console.log(err))
       this.$router.push('/admin/pages')
     }
   }

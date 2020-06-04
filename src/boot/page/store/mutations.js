@@ -11,8 +11,11 @@ export function deleteOnePage (state, id) {
   state.pages.splice(state.pages.indexOf(page), 1)
 }
 
-export function updateOnePage (state, id, data) {
-  console.log('mutation update one page')
-  const page = state.pages.find(page => page._id === id)
+export function updateOnePage (state, data) {
+  const page = state.pages.find(page => page._id === data._id)
   state.pages[state.pages.indexOf(page)] = data
+}
+
+export function insertOnePage (state, data) {
+  state.pages.push(data)
 }

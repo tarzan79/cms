@@ -128,26 +128,18 @@ export default {
   },
   methods: {
     init: function () {
-      console.log(this.$route.params.title)
-      console.log(this.author)
-      this.$axios({
-        url: '/pages?formatedTitle=' + this.$route.params.title,
-        method: 'get'
-      })
-        .then(resp => {
+      this.$store
+        .dispatch('getOnePage', this.$route.params.title)
+        .then((resp) => {
           console.log('page recuperer')
-          console.log(resp.data[0])
-          this.page = resp.data[0]
+          console.log(resp.data)
+          this.page = resp.data
         })
-        .catch(err => {
-          console.log('erreur : ')
-          console.log(err.response.data.errors)
-        })
+        .catch(err => console.log(err))
     },
     save: function () {
-      console.log(this.author)
       this.$store
-        .dispatch('updateOnePage', this.page._id, this.page)
+        .dispatch('updateOnePage', this.page)
         .then((page) => {
           this.page = page
         })
