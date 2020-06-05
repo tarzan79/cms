@@ -2,7 +2,7 @@ export const getAllPages = state => {
   if (state.pages != null) {
     return state.pages
   } else {
-    console.log(state)
+    console.log('pas de page')
     // return state.$store.dispatch('getAllPages')
   }
 }

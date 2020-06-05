@@ -26,37 +26,17 @@ export default {
   },
   data () {
     return {
-      title: '',
-      author: this.$store.state.auth.user.username,
-      formatedTitle: '',
-      qeditor: '',
-      editorData: '',
-      editorConfig: {
-        // The configuration of the editor.
+      node: {
+        title: '',
+        formatedTitle: '',
+        qeditor: ''
       }
     }
   },
   methods: {
     add: function () {
       console.log(this.author)
-      this.$axios({
-        url: '/pages',
-        method: 'post',
-        data: {
-          title: this.title,
-          content: this.qeditor,
-          formatedTitle: this.title.replace(new RegExp(/[.*+' \-?^${}()|[\]\\]/g), '_'),
-          author: this.$store.state.auth.user.username
-        }
-      })
-        .then(resp => {
-          console.log('page ajouter')
-          console.log(resp.data)
-        })
-        .catch(err => {
-          console.log('erreur : ')
-          console.log(err.response.data.errors)
-        })
+      this.$store.dispatch('insertOne', this.node)
       this.$router.push('/admin/pages')
     }
   }

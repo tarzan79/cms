@@ -15,3 +15,7 @@ export function updateOneNode (state, data) {
   const node = state.nodes.find(node => node._id === data._id)
   state.nodes[state.nodes.indexOf(node)] = data
 }
+
+export function insertOneNode (state, data) {
+  state.nodes.push(data)
+}

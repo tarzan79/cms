@@ -127,38 +127,12 @@ export default {
   methods: {
     init: function () {
       console.log(this.$route.params.name)
-      this.$axios({
-        url: '/nodes?formatedName=' + this.$route.params.name,
-        method: 'get'
+      this.$store.dispatch('getAllNodes').then((nodes) => {
+        this.nodes = nodes
       })
-        .then(resp => {
-          console.log('page recuperer')
-          console.log(resp.data)
-          this.node = resp.data[0]
-        })
-        .catch(err => {
-          console.log('erreur : ')
-          console.log(err.response.data.errors)
-        })
     },
     save: function () {
-      this.$axios({
-        url: '/nodes/' + this.node._id,
-        method: 'put',
-        data: {
-          name: this.node.name,
-          model: this.node.model,
-          formatedName: this.node.name.replace(new RegExp(/[.*+' \-?^${}()|[\]\\]/g), '_')
-        }
-      })
-        .then(resp => {
-          console.log('node modifier')
-          console.log(resp.data)
-        })
-        .catch(err => {
-          console.log('erreur : ')
-          console.log(err.response.data.errors)
-        })
+      this.$store.dispatch('insertOneNode', this.node)
       this.$router.push('/admin/nodes')
     }
   }

@@ -78,20 +78,11 @@ export default {
       console.log(props)
     },
     showList: function () {
-      this.$axios({
-        url: '/nodes/' + this.$route.params.name + '/elements',
-        method: 'GET'
+      this.$store.dispatch('getAllElements', this.$route.params.name).then((elements) => {
+        console.log(elements)
+        this.elements = elements
+        this.columns.data = elements
       })
-        .then(resp => {
-          // console.log(Object.values(resp.data))
-          const array = Object.keys(resp.data).map(i => resp.data[i])
-          console.log(array)
-          this.elements = array
-          this.columns.data = array
-        })
-        .catch(err => {
-          console.log(err)
-        })
     },
     refresh: function () {
       this.showList()

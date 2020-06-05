@@ -78,20 +78,9 @@ export default {
       console.log(props)
     },
     showList: function () {
-      this.$axios({
-        url: '/nodes',
-        method: 'GET'
-      })
-        .then(resp => {
-          // console.log(Object.values(resp.data))
-          const array = Object.keys(resp.data).map(i => resp.data[i])
-          console.log(array)
-          this.nodes = array
-          this.columns.data = array
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.$store.dispatch('getAllNodes').then((nodes) => {
+        this.nodes = nodes
+      }).catch(err => console.log(err))
     },
     refresh: function () {
       this.showList()
@@ -100,17 +89,9 @@ export default {
       this.$router.push('/admin/pages/modify/' + id)
     },
     remove: function (id) {
-      this.$axios({
-        url: '/pages/' + id,
-        method: 'DELETE'
-      })
-        .then(resp => {
-          console.log('page supprimer')
-          this.showList()
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      this.$store.dispatch('deleteOneNode', id).then(() => {
+        this.nodes = this.$store.getters.getAllNodes
+      }).catch(err => console.log(err))
     }
   }
 }

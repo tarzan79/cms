@@ -132,8 +132,8 @@ export default {
         .dispatch('getOnePage', this.$route.params.title)
         .then((resp) => {
           console.log('page recuperer')
-          console.log(resp.data)
-          this.page = resp.data
+          console.log(resp)
+          this.page = resp
         })
         .catch(err => console.log(err))
     },

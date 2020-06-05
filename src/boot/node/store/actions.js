@@ -68,3 +68,39 @@ export function updateOneNode ({ commit, state }, data) {
     })
   })
 }
+
+export function insertOneNode ({
+  commit
+}, data) {
+  return new Promise((resolve, reject) => {
+    this.$axios({
+      method: 'POST',
+      url: '/nodes/',
+      data: data
+    }).then(node => {
+      commit('insertOneNode', data)
+      resolve(true)
+    }).catch(err => {
+      console.log('insertion non reussi')
+      reject(err)
+    })
+  })
+}
+
+export function getAllElements ({
+  commit,
+  getters
+}, nodeId) {
+  return new Promise((resolve, reject) => {
+    this.$axios({
+      method: 'GET',
+      url: '/nodes'
+    }).then(elements => {
+      commit('getAllElements', elements.data)
+      resolve(elements.data)
+    }).catch(err => {
+      console.log('erreurs de chargement des elements')
+      reject(err)
+    })
+  })
+}
