@@ -19,3 +19,7 @@ export function updateOneNode (state, data) {
 export function insertOneNode (state, data) {
   state.nodes.push(data)
 }
+
+export function getAllElements (state, { node, elements }) {
+  state.elements[node] = elements
+}

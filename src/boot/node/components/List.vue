@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
     <h2>Liste des Nodes</h2>
-    <q-btn to="/admin/pages/create" label="Créer"></q-btn>
+    <q-btn to="/admin/nodes/create" label="Créer"></q-btn>
     <q-btn @click="refresh" icon="refresh"></q-btn>
     <hr />
     <q-table title="Nodes" :data="nodes" :columns="columns" row-key="name">
@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 'ListPages',
+  name: 'ListNodes',
   data () {
     return {
       loading: false,
@@ -86,7 +86,7 @@ export default {
       this.showList()
     },
     edit: function (id) {
-      this.$router.push('/admin/pages/modify/' + id)
+      this.$router.push('/admin/nodes/modify/' + id)
     },
     remove: function (id) {
       this.$store.dispatch('deleteOneNode', id).then(() => {

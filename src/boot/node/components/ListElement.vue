@@ -16,15 +16,6 @@
             :to="'/admin/nodes/' + props.row.formatedName"
             icon="edit"
           ></q-btn>
-          <q-btn
-            dense
-            round
-            flat
-            color="green"
-            type="a"
-            :to="'/admin/nodes/' + props.row.formatedName + '/list'"
-            icon="list"
-          ></q-btn>
           <q-btn dense round flat color="red" @click="remove(props.row._id)" icon="delete"></q-btn>
         </q-td>
       </template>
@@ -40,36 +31,14 @@ export default {
       loading: false,
       to: '',
       elements: [],
-      columns: [
-        {
-          name: 'name',
-          align: 'center',
-          label: 'Name',
-          field: 'name',
-          sortable: true
-        },
-        {
-          name: 'formatedName',
-          align: 'center',
-          label: 'Formated Name',
-          field: 'formatedName',
-          sortable: true
-        },
-        {
-          name: 'description',
-          align: 'center',
-          label: 'Description',
-          field: 'description',
-          sortable: true
-        },
-        { name: 'actions', label: 'Actions', field: '', align: 'center' }
-      ]
+      columns: []
     }
   },
   //   created: function () {
   //     this.$emit('update:layout', Layout)
   //     this.showList()
   //   },
+  // { name: 'actions', label: 'Actions', field: '', align: 'center' }
   mounted: function () {
     this.showList()
   },
@@ -78,10 +47,24 @@ export default {
       console.log(props)
     },
     showList: function () {
+      this.$store.dispatch('getOneNode', this.$route.params.name).then((schema) => {
+        console.log('schema node elements')
+        console.log(schema)
+        Object.keys(JSON.parse(schema.model)).forEach((key) => {
+          this.columns.push({
+            name: key,
+            align: 'center',
+            label: key,
+            field: key,
+            sortable: true
+          })
+        })
+        this.columns.push({ name: 'actions', label: 'Actions', field: '', align: 'center' })
+      })
       this.$store.dispatch('getAllElements', this.$route.params.name).then((elements) => {
+        console.log('elements')
         console.log(elements)
         this.elements = elements
-        this.columns.data = elements
       })
     },
     refresh: function () {

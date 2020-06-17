@@ -9,7 +9,7 @@
     <br>
     <span>model </span>
     <hr>
-    <q-input required filled v-model="node.model" type="text" label="model" ></q-input>
+    <Editor></Editor>
     <br>
     <q-btn label="Ajouter" @click="add"/>
   </div>
@@ -17,9 +17,10 @@
 
 <script>
 import Editor from './json-schema-editor/Editor'
+import VueFormJsonSchema from 'vue-form-json-schema'
 export default {
   /* eslint-disable vue/no-unused-components */
-  name: 'CreateNode',
+  name: 'CreateElement',
   components: {
     Editor
   },
@@ -35,11 +36,25 @@ export default {
   },
   methods: {
     add: function () {
-      console.log('this.node')
-      console.log(this.node)
-      this.node.formatedName = this.node.name.replace(new RegExp(/[.*+' \-?^${}()|[\]\\]/g), '_')
-      this.$store.dispatch('insertOneNode', this.node)
+      console.log(this.author)
+      this.$store.dispatch('insertOne', this.node)
       this.$router.push('/admin/nodes')
+    },
+    init: function () {
+      this.$store.dispatch('getOneNode', this.$route.params.name).then((schema) => {
+        console.log('schema node elements to create')
+        console.log(schema)
+        Object.keys(JSON.parse(schema.model)).forEach((key) => {
+          this.columns.push({
+            name: key,
+            align: 'center',
+            label: key,
+            field: key,
+            sortable: true
+          })
+        })
+        this.columns.push({ name: 'actions', label: 'Actions', field: '', align: 'center' })
+      })
     }
   }
 }

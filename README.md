@@ -1,4 +1,6 @@
 # Quasar App (cms-quasar)
+logiciel encore en developpement
+
 
 A Quasar Framework app
 

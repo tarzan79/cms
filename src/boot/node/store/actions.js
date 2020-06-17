@@ -73,6 +73,9 @@ export function insertOneNode ({
   commit
 }, data) {
   return new Promise((resolve, reject) => {
+    console.log('data : ')
+    console.log(data)
+    data.model = JSON.stringify(data.model)
     this.$axios({
       method: 'POST',
       url: '/nodes/',
@@ -90,11 +93,11 @@ export function insertOneNode ({
 export function getAllElements ({
   commit,
   getters
-}, nodeId) {
+}, nodeName) {
   return new Promise((resolve, reject) => {
     this.$axios({
       method: 'GET',
-      url: '/nodes'
+      url: `/nodes/${nodeName}/elements`
     }).then(elements => {
       commit('getAllElements', elements.data)
       resolve(elements.data)
