@@ -16,7 +16,7 @@
     "@ckeditor/ckeditor5-build-classic": "^19.0.0",
     "@ckeditor/ckeditor5-vue": "^1.0.1",
     "@quasar/extras": "^1.8.1",
-    "axios": "^0.18.1",
+    "axios": "^0.21.1",
     "quasar": "^1.11.3",
     "vue-form-generator": "^2.3.4",
     "vue-form-json-schema": "^2.5.3",
